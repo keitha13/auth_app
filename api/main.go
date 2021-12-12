@@ -1,13 +1,18 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"auth-api/database"
+	"auth-api/routes"
 
-func main(){
+	"github.com/gofiber/fiber/v2"
+)
+
+func main() {
+	// GORMセット
+	database.Connect()
+
 	app := fiber.New()
-
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World 👋!")
-	})
+	routes.Setup(app)
 
 	app.Listen(":80")
 }
